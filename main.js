@@ -97,26 +97,52 @@ posts.forEach(element => {
             </div> 
         </div>            
     </div>`
-
-    // Dichiarazione di tutti i pulsanti "Mi Piace"
-    const likeButtons = document.querySelectorAll('.likes__cta');
-
-    // Per ogni pulsante "Mi Piace"
-    likeButtons.forEach((button) => {
-        
-        // Al click del pulsante
-        button.addEventListener('click', function() {
-
-            // Cambia il colore del testo
-            const likeText = button.querySelector(`.like-button__label`);
-            likeText.style.color = '#0490fe';
-
-            // Cambia il colore dell'icona
-            const likeIcon = button.querySelector('.like-button__icon');
-            likeIcon.style.color = '#0490fe';
-
-        })
-    });
-
+    
 });
 
+// Dichiarazione Pulsante "Mi Piace"
+const likeButton = document.querySelectorAll('.js-like-button');
+
+// Ogni Pulsante "Mi Piace"
+likeButton.forEach(button => {
+    
+    // Al click del pulsante
+    button.addEventListener('click', function(event) {
+
+        // Previene lo scroll verso l'alto
+        event.preventDefault();
+        
+        // Ottengo il valore dell'attributo dell'elemento data-postid
+        const postId = button.getAttribute('data-postid');
+        
+        // Dichiarazione la variabile che itera i valori per ogni id di post (n° Like)
+        const likeCounter = document.getElementById(`like-counter-${postId}`);
+        
+        // Dichiarazione Label e Icon (cambiano colore)
+        const likeButtonLabel = button.querySelector('.like-button__label');
+        const likeButtonIcon = button.querySelector('.like-button__icon');
+
+        // Ottiengo il conteggio attuale dei like (textContext serve per ottenere un input testuale, value è specifica per gli input)
+        let currentLikes = parseInt(likeCounter.textContent);
+
+        // Verifico se il pulsante è già stato cliccato
+        const isLiked = likeButtonLabel.classList.contains("like-button--liked");
+
+        if (isLiked) {
+            // Se è già stato cliccato, decrementa il conteggio
+            currentLikes--;
+        } else {
+            // Altrimenti, incrementa il conteggio
+            currentLikes++;
+        }
+
+        // Aggiorna il conteggio dei like
+        likeCounter.textContent = currentLikes;
+
+        // Cambia il colore del testo del pulsante "Mi Piace" (toggle = interruttore)
+        likeButtonLabel.classList.toggle("like-button--liked", !isLiked);
+        likeButtonIcon.classList.toggle("like-button--liked", !isLiked);   
+
+    })
+
+});
