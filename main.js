@@ -86,16 +86,37 @@ posts.forEach(element => {
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <a class="like-button  js-like-button" href="#" data-postid="${element.id}">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
                     </a>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                    Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                 </div>
             </div> 
         </div>            
     </div>`
+
+    // Dichiarazione di tutti i pulsanti "Mi Piace"
+    const likeButtons = document.querySelectorAll('.likes__cta');
+
+    // Per ogni pulsante "Mi Piace"
+    likeButtons.forEach((button) => {
+        
+        // Al click del pulsante
+        button.addEventListener('click', function() {
+
+            // Cambia il colore del testo
+            const likeText = button.querySelector(`.like-button__label`);
+            likeText.style.color = '#0490fe';
+
+            // Cambia il colore dell'icona
+            const likeIcon = button.querySelector('.like-button__icon');
+            likeIcon.style.color = '#0490fe';
+
+        })
+    });
+
 });
 
