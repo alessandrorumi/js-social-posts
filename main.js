@@ -103,6 +103,9 @@ posts.forEach(element => {
 // Dichiarazione Pulsante "Mi Piace"
 const likeButton = document.querySelectorAll('.js-like-button');
 
+// Dichiaro un array per tenere traccia degli ID dei post cliccati
+let clickedArray = [];
+
 // Ogni Pulsante "Mi Piace"
 likeButton.forEach(button => {
     
@@ -126,22 +129,24 @@ likeButton.forEach(button => {
         let currentLikes = parseInt(likeCounter.textContent);
 
         // Verifico se il pulsante è già stato cliccato
-        const isLiked = likeButtonLabel.classList.contains("like-button--liked");
+        const isLiked = likeButtonLabel.classList.contains('like-button--liked');
 
-        if (isLiked) {
-            // Se è già stato cliccato, decrementa il conteggio
-            currentLikes--;
-        } else {
-            // Altrimenti, incrementa il conteggio
-            currentLikes++;
+        if (!isLiked) {
+            // Aggiungo l'ID del post all'array
+            clickedArray.push(postId);
         }
+
+        console.log(clickedArray);
+
+        // Incremento il conteggio
+        currentLikes++;
 
         // Aggiorna il conteggio dei like
         likeCounter.textContent = currentLikes;
 
-        // Cambia il colore del testo del pulsante "Mi Piace" (toggle = interruttore)
-        likeButtonLabel.classList.toggle("like-button--liked", !isLiked);
-        likeButtonIcon.classList.toggle("like-button--liked", !isLiked);   
+        // Cambio il colore del testo del pulsante "Mi Piace" (toggle = interruttore)
+        likeButtonLabel.classList.add("like-button--liked");
+        likeButtonIcon.classList.add("like-button--liked");  
 
     })
 
