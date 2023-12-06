@@ -134,6 +134,8 @@ likeButton.forEach(button => {
         if (!isLiked) {
             // Aggiungo l'ID del post all'array
             clickedArray.push(postId);
+        } else {
+            clickedArray.pop(postId);
         }
 
         console.log(clickedArray);
@@ -151,7 +153,7 @@ likeButton.forEach(button => {
 
         // Cambia il colore del testo del pulsante "Mi Piace" (toggle = interruttore)
         likeButtonLabel.classList.toggle("like-button--liked", !isLiked);
-        likeButtonIcon.classList.toggle("like-button--liked", !isLiked);   
+        likeButtonIcon.classList.toggle("like-button--liked", !isLiked);
 
     })
 
