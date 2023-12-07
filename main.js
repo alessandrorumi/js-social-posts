@@ -66,8 +66,8 @@ const container = document.getElementById('container');
 posts.forEach(element => {
 
     // Stampa nel container con innerHTML
-    container.innerHTML += 
-    `<div class="post">
+    container.innerHTML +=
+        `<div class="post">
         <div class="post__header">
             <div class="post-meta">                    
                 <div class="post-meta__icon">
@@ -97,7 +97,7 @@ posts.forEach(element => {
             </div> 
         </div>            
     </div>`
-    
+
 });
 
 // Dichiarazione Pulsante "Mi Piace"
@@ -108,35 +108,28 @@ let clickedArray = [];
 
 // Ogni Pulsante "Mi Piace"
 likeButton.forEach(button => {
-    
+
     // Al click del pulsante
-    button.addEventListener('click', function(event) {
+    button.addEventListener('click', function (event) {
 
         // Previene lo scroll verso l'alto
         event.preventDefault();
-        
-        // Ottengo il valore dell'attributo dell'elemento data-postid
-        const postId = button.getAttribute('data-postid');
-        
-        // Dichiarazione la variabile che itera i valori per ogni id di post (n° Like)
-        const likeCounter = document.getElementById(`like-counter-${postId}`);
-        
+
         // Dichiarazione Label e Icon (cambiano colore)
         const likeButtonLabel = button.querySelector('.like-button__label');
         const likeButtonIcon = button.querySelector('.like-button__icon');
+        // Cambio il colore del testo del pulsante "Mi Piace"
+        likeButtonLabel.classList.add("like-button--liked");
+        likeButtonIcon.classList.add("like-button--liked");
+
+        // Ottengo il valore dell'attributo dell'elemento data-postid
+        const postId = button.getAttribute('data-postid');
+
+        // Dichiarazione la variabile che itera i valori per ogni id di post (n° Like)
+        const likeCounter = document.getElementById(`like-counter-${postId}`);
 
         // Ottiengo il conteggio attuale dei like (textContext serve per ottenere un input testuale, value è specifica per gli input)
         let currentLikes = parseInt(likeCounter.textContent);
-
-        // Verifico se il pulsante è già stato cliccato
-        const isLiked = likeButtonLabel.classList.contains('like-button--liked');
-
-        if (!isLiked) {
-            // Aggiungo l'ID del post all'array
-            clickedArray.push(postId);
-        }
-
-        console.log(clickedArray);
 
         // Incremento il conteggio
         currentLikes++;
@@ -144,9 +137,9 @@ likeButton.forEach(button => {
         // Aggiorna il conteggio dei like
         likeCounter.textContent = currentLikes;
 
-        // Cambio il colore del testo del pulsante "Mi Piace" (toggle = interruttore)
-        likeButtonLabel.classList.add("like-button--liked");
-        likeButtonIcon.classList.add("like-button--liked");  
+        clickedArray.push(postId);
+
+        console.log(clickedArray);
 
     })
 
